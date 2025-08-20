@@ -2,46 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Devilash Discord</title>
+  <title>Discord Widget</title>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: transparent; }
+    body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: transparent; }
     a.widget {
       display: block;
-      width: 320px;
-      padding: 16px;
-      border-radius: 12px;
+      width: 340px;
+      padding: 18px;
+      border-radius: 16px;
       background: #2c2f33;
       color: white;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     a.widget:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.45);
     }
-    .header { display: flex; align-items: center; margin-bottom: 12px; }
+    .header { display: flex; align-items: center; margin-bottom: 14px; }
     .server-icon {
-      width: 48px; height: 48px;
+      width: 56px; height: 56px;
       border-radius: 50%;
       margin-right: 12px;
+      border: 3px solid #5865F2;
     }
-    .server-name { font-size: 18px; font-weight: bold; }
-    .counts { font-size: 14px; opacity: 0.9; margin-bottom: 12px; }
+    .server-name { font-size: 20px; font-weight: bold; }
+    .counts { font-size: 14px; opacity: 0.9; margin-bottom: 14px; }
     .join-btn {
       display: inline-block;
       background: #5865F2;
       color: white;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 15px;
       pointer-events: none;
     }
     .discord-logo {
       position: absolute;
-      top: 10px; right: 10px;
-      width: 24px; opacity: 0.8;
+      top: 14px; right: 14px;
+      width: 26px; opacity: 0.8;
+    }
+    .activity {
+      font-size: 13px;
+      margin-bottom: 12px;
+      color: #b9bbbe;
     }
   </style>
 </head>
@@ -49,10 +57,13 @@
   <a id="widget" class="widget" href="#" target="_blank">
     <div class="header">
       <img id="server-icon" class="server-icon" src="" alt="Server">
-      <div class="server-name" id="server-name">Loading...</div>
+      <div>
+        <div class="server-name" id="server-name">Loading...</div>
+        <div class="activity" id="activity">...</div>
+      </div>
     </div>
     <div class="counts" id="counts">--</div>
-    <div class="join-btn">Join Server</div>
+    <div class="join-btn">✨ Join the Community</div>
     <img class="discord-logo" src="https://cdn.worldvectorlogo.com/logos/discord-6.svg" alt="Discord">
   </a>
 
@@ -63,7 +74,10 @@
       .then(data => {
         document.getElementById("server-name").innerText = data.name;
         document.getElementById("server-icon").src = data.icon_url;
-        document.getElementById("counts").innerText = `${data.presence_count} online now`;
+        document.getElementById("counts").innerText = `${data.presence_count} members online now`;
+        document.getElementById("activity").innerText = data.presence_count > 10 
+          ? "🔥 Active right now!" 
+          : "👋 A friendly place to hang out";
         document.getElementById("widget").href = data.instant_invite;
       })
       .catch(() => {
