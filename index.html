@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Devilash Discord</title>
+  <title>Devilash Games</title>
   <style>
     body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: transparent; }
     a.widget {
@@ -59,35 +59,42 @@
   </style>
 </head>
 <body>
-  <a id="widget" class="widget" href="#" target="_blank">
+  <a id="widget" class="widget" href="https://discord.gg/AWSkrAHVDe" target="_blank">
     <div class="header">
-      <img id="server-icon" class="server-icon" src="" alt="Server">
+      <img id="server-icon" class="server-icon" src="https://via.placeholder.com/56?text=🎮" alt="Server">
       <div>
         <div class="server-name" id="server-name">Loading...</div>
-        <div class="activity" id="activity">⚔️ Join epic battles & gaming adventures!</div>
+        <div class="activity" id="activity">⚔️ Creating epic adult adventures through games!</div>
       </div>
     </div>
     <div class="counts">
       <span><span class="status-dot"></span><span id="online">0</span> online</span>
       <span id="total">45 adventurers</span>
     </div>
-    <div class="join-btn">✨ Join the Community</div>
+    <div class="join-btn">✨ Join the Adventure!</div>
     <img class="discord-logo" src="https://cdn.worldvectorlogo.com/logos/discord-6.svg" alt="Discord">
   </a>
 
   <script>
     const serverId = "1281397547042209792"; // replace with your server ID
+
     fetch(`https://discord.com/api/guilds/${serverId}/widget.json`)
       .then(res => res.json())
       .then(data => {
-        // Build icon URL manually
+        // Set server icon if available
         if (data.icon) {
           document.getElementById("server-icon").src =
-            `https://cdn.discordapp.com/icons/${serverId}/${data.icon}.png`;
+            `https://cdn.discordapp.com/icons/${data.id}/${data.icon}.png?size=128`;
         }
+
+        // Update server name and online count
         document.getElementById("server-name").innerText = data.name;
         document.getElementById("online").innerText = data.presence_count;
-        document.getElementById("widget").href = data.instant_invite;
+
+        // Update invite link
+        if (data.instant_invite) {
+          document.getElementById("widget").href = data.instant_invite;
+        }
       })
       .catch(() => {
         document.getElementById("server-name").innerText = "Server unavailable";
@@ -95,3 +102,5 @@
   </script>
 </body>
 </html>
+
+
