@@ -2,13 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Devilash Discord</title>
+  <title>Discord Widget</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: transparent;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: transparent; }
     a.widget {
       display: block;
       width: 320px;
@@ -24,31 +20,14 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .discord-logo {
-      width: 28px;
-      margin-right: 8px;
-    }
+    .header { display: flex; align-items: center; margin-bottom: 12px; }
     .server-icon {
-      width: 42px;
-      height: 42px;
+      width: 48px; height: 48px;
       border-radius: 50%;
-      margin-right: 10px;
-      flex-shrink: 0;
+      margin-right: 12px;
     }
-    .server-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .counts {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 12px;
-    }
+    .server-name { font-size: 18px; font-weight: bold; }
+    .counts { font-size: 14px; opacity: 0.9; margin-bottom: 12px; }
     .join-btn {
       display: inline-block;
       background: #5865F2;
@@ -57,30 +36,34 @@
       border-radius: 8px;
       font-weight: bold;
       font-size: 14px;
-      pointer-events: none; /* not clickable */
+      pointer-events: none;
+    }
+    .discord-logo {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 24px; opacity: 0.8;
     }
   </style>
 </head>
 <body>
   <a id="widget" class="widget" href="#" target="_blank">
     <div class="header">
-      <img class="discord-logo" src="https://cdn.worldvectorlogo.com/logos/discord-6.svg" alt="Discord">
       <img id="server-icon" class="server-icon" src="" alt="Server">
       <div class="server-name" id="server-name">Loading...</div>
     </div>
     <div class="counts" id="counts">--</div>
     <div class="join-btn">Join Server</div>
+    <img class="discord-logo" src="https://cdn.worldvectorlogo.com/logos/discord-6.svg" alt="Discord">
   </a>
 
   <script>
-    const serverId = "1281397547042209792"; // replace with your server ID
+    const serverId = "YOUR_SERVER_ID"; // replace with your server ID
     fetch(`https://discord.com/api/guilds/${serverId}/widget.json`)
       .then(res => res.json())
       .then(data => {
         document.getElementById("server-name").innerText = data.name;
         document.getElementById("server-icon").src = data.icon_url;
-        document.getElementById("counts").innerText =
-          `${data.presence_count} online • ${data.members.length} members`;
+        document.getElementById("counts").innerText = `${data.presence_count} online now`;
         document.getElementById("widget").href = data.instant_invite;
       })
       .catch(() => {
