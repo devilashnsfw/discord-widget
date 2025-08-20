@@ -2,116 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Devilash Games Widget</title>
-  <style>
-    body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #2c2f33; }
-    #widget-canvas { display: block; }
-    #widget-image { display: block; margin: 20px; }
-  </style>
-</head>
-<body>
-  <canvas id="widget-canvas" width="376" height="162"></canvas>
-  <img id="widget-image" alt="Discord Widget">
-
-  <script>
-    // Load images first to ensure they're available for canvas drawing
-    const serverIcon = new Image();
-    serverIcon.src = 'icon_full.png'; // Replace with the path to your icon_full.png
-    const discordLogo = new Image();
-    discordLogo.src = 'https://cdn.worldvectorlogo.com/logos/discord-6.svg';
-
-    // Wait for both images to load before drawing
-    Promise.all([
-      new Promise(resolve => serverIcon.onload = resolve),
-      new Promise(resolve => discordLogo.onload = resolve),
-      new Promise(resolve => serverIcon.onerror = () => {
-        // Fallback if icon_full.png fails to load
-        serverIcon.src = 'https://via.placeholder.com/56?text=🎮';
-        serverIcon.onload = resolve;
-      }),
-      new Promise(resolve => discordLogo.onerror = () => {
-        // Fallback if Discord logo fails to load
-        discordLogo.src = 'https://via.placeholder.com/26?text=D';
-        discordLogo.onload = resolve;
-      })
-    ]).then(() => {
-      const canvas = document.getElementById('widget-canvas');
-      const ctx = canvas.getContext('2d');
-
-      // Widget dimensions and styling
-      const width = 376;
-      const height = 162;
-
-      // Draw background
-      ctx.fillStyle = '#2c2f33';
-      ctx.fillRect(0, 0, width, height);
-
-      // Draw shadow (simplified as a border for canvas)
-      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
-      ctx.lineWidth = 8;
-      ctx.strokeRect(4, 4, width - 8, height - 8);
-
-      // Draw server icon (circle with border)
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(36, 36, 28, 0, Math.PI * 2);
-      ctx.clip();
-      ctx.drawImage(serverIcon, 8, 8, 56, 56);
-      ctx.restore();
-      ctx.strokeStyle = '#5865F2';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.arc(36, 36, 28, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Draw server name (using static placeholder)
-      ctx.fillStyle = 'white';
-      ctx.font = 'bold 20px Segoe UI, Arial';
-      ctx.fillText('Devilash Games', 80, 30);
-
-      // Draw activity text
-      ctx.fillStyle = '#b9bbbe';
-      ctx.font = '13px Segoe UI, Arial';
-      ctx.fillText('⚔️ Creating epic adult adventures through games!', 80, 50);
-
-      // Draw member counts
-      ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.font = '14px Segoe UI, Arial';
-      // Online count with status dot (using static placeholder)
-      ctx.beginPath();
-      ctx.arc(80, 85, 5, 0, Math.PI * 2);
-      ctx.fillStyle = '#3ba55d';
-      ctx.fill();
-      ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.fillText('42 online', 92, 88);
-      // Total members
-      ctx.fillText('45 adventurers', 152, 88);
-
-      // Draw join button
-      ctx.fillStyle = '#5865F2';
-      ctx.beginPath();
-      ctx.roundRect(80, 110, 160, 36, 8);
-      ctx.fill();
-      ctx.fillStyle = 'white';
-      ctx.font = 'bold 15px Segoe UI, Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('✨ Join the Adventure!', 160, 132);
-      ctx.textAlign = 'left';
-
-      // Draw Discord logo
-      ctx.drawImage(discordLogo, 338, 14, 26, 26);
-
-      // Convert canvas to image
-      const img = document.getElementById('widget-image');
-      img.src = canvas.toDataURL('image/png');
-    });
-  </script>
-</body>
-</html>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
   <title>Devilash Games</title>
   <style>
     body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #2c2f33; }
@@ -172,7 +62,7 @@
 <body>
   <a id="widget" class="widget" href="https://discord.gg/AWSkrAHVDe" target="_blank">
     <div class="header">
-      <img id="server-icon" class="server-icon" src="icon_full.png" alt="Server">
+      <img id="server-icon" class="server-icon" src="https://github.com/devilashnsfw/discord-widget/blob/main/icon_full.png?raw=true" alt="Server">
       <div>
         <div class="server-name" id="server-name">Loading...</div>
         <div class="activity" id="activity">⚔️ Creating epic adult adventures through games!</div>
@@ -212,4 +102,4 @@
 </html>
 
 
- -->
+
