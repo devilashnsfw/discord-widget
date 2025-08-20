@@ -16,6 +16,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
     .header { display: flex; align-items: center; margin-bottom: 14px; }
     .server-icon {
@@ -46,6 +47,7 @@
       font-size: 15px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      pointer-events: none; /* ensures full widget click works */
     }
     .join-btn:hover {
       transform: translateY(-3px);
@@ -81,17 +83,14 @@
     fetch(`https://discord.com/api/guilds/${serverId}/widget.json`)
       .then(res => res.json())
       .then(data => {
-        // Set server icon if available
-        if (data.icon) {
-          document.getElementById("server-icon").src =
-            `https://cdn.discordapp.com/icons/${data.id}/${data.icon}.png?size=128`;
+        // Use icon_url if available
+        if (data.icon_url) {
+          document.getElementById("server-icon").src = data.icon_url;
         }
 
-        // Update server name and online count
         document.getElementById("server-name").innerText = data.name;
         document.getElementById("online").innerText = data.presence_count;
 
-        // Update invite link
         if (data.instant_invite) {
           document.getElementById("widget").href = data.instant_invite;
         }
